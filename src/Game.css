@@ -39,16 +39,22 @@
   justify-content: center;
 }
 
-.answers,
-.timer {
+.Game__Answers,
+.Game__Timer {
   color: black;
   font-size: 16px;
   padding: 10px;
 }
 
-.Game-Over {
+.Game__Over {
   font-size: 250%;
   font-weight: bold;
   margin: 15px;
   color: blue;
+}
+
+.Game__Description {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #777676;
 }

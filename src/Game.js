@@ -85,6 +85,10 @@ const BrainGame = () => {
 
   return (
     <>
+      <div className="Game__Description">
+        Choisissez la couleur correspondant au mot entouré. Vous avez 60
+        secondes.
+      </div>
       {gameOver === true ? (
         <PlayAgain score={correctAnswers} onClick={() => startNewGame} />
       ) : (
@@ -96,8 +100,8 @@ const BrainGame = () => {
             colors={colorsList}
             words={wordsList}
           />
-          <div className="answers">Bonnes réponses: {correctAnswers}</div>
-          <div className="timer">Secondes restantes: {secondsLeft}</div>
+          <div className="Game__Answers">Bonnes réponses: {correctAnswers}</div>
+          <div className="Game__Timer">Secondes restantes: {secondsLeft}</div>
         </>
       )}
     </>
@@ -135,7 +139,7 @@ const Game = (props) => {
 // play again button, when timer is over
 const PlayAgain = (props) => (
   <>
-    <div className="Game-Over">{'Votre score est de ' + props.score}</div>
+    <div className="Game__Over">{'Votre score est de ' + props.score}</div>
     <button onClick={props.onClick(true)}>Rejouez</button>
   </>
 );
@@ -173,7 +177,7 @@ const Colors = {
   Bleu: 'blue',
   Noir: 'black',
   Orange: 'orange',
-  Violet: 'violet',
+  Violet: 'darkviolet',
   Marron: 'saddlebrown',
   Turquoise: 'turquoise',
 };
