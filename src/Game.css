@@ -1,0 +1,47 @@
+.Game {
+  color: #808080;
+  display: flex;
+  width: 100%;
+  margin: 30px;
+}
+
+.Game__Words {
+  width: 80%;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-rows: repeat(3, minmax(100px, 1fr));
+  font-size: 20px;
+  font-weight: 800;
+  align-items: stretch;
+  justify-content: stretch;
+  background-color: white;
+  position: relative;
+}
+
+.Game__Colors {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.Game__Button {
+  width: 50px;
+  height: 50px;
+}
+
+.Game__Div {
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.answers,
+.timer {
+  color: black;
+  font-size: 16px;
+  padding: 10px;
+}
