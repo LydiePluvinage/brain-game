@@ -26,9 +26,12 @@ const BrainGame = () => {
         setSecondsLeft(secondsLeft - 1);
       }, 1000);
       return () => clearTimeout(timerId);
-    } else {
     }
   });
+
+  const gameOver = secondsLeft === 0;
+  console.log(secondsLeft);
+  console.log(gameOver);
 
   // function that shuffles an array
   function shuffleArray(array) {
@@ -61,23 +64,41 @@ const BrainGame = () => {
     if (colorChosen === validColor) {
       setCorrectAnswers(correctAnswers + 1);
     }
+    startNewGame(false);
+  }
+
+  // resets all state elements for the new game
+  function startNewGame(newGame) {
     setValidColor(pickRandomColor(Object.entries(Colors)));
     setWordsList(shuffleArray(shuffleWords(Object.entries(Colors))));
     setColorsList(shuffleArray(Object.entries(Colors)));
-    setGameId(gameId + 1);
+    setGameId(0);
+    if (newGame) {
+      setCorrectAnswers(0);
+      setGameId(0);
+      setSecondsLeft(60);
+    } else {
+      setGameId(gameId + 1);
+    }
   }
 
   return (
     <>
-      <Game
-        key={gameId}
-        validColor={validColor}
-        checkAnswer={checkAnswerAndReset}
-        colors={colorsList}
-        words={wordsList}
-      />
-      <div className="answers">Bonnes réponses: {correctAnswers}</div>
-      <div className="timer">Secondes restantes: {secondsLeft}</div>
+      {gameOver === true ? (
+        <PlayAgain score={correctAnswers} onClick={() => startNewGame} />
+      ) : (
+        <>
+          <Game
+            key={gameId}
+            validColor={validColor}
+            checkAnswer={checkAnswerAndReset}
+            colors={colorsList}
+            words={wordsList}
+          />
+          <div className="answers">Bonnes réponses: {correctAnswers}</div>
+          <div className="timer">Secondes restantes: {secondsLeft}</div>
+        </>
+      )}
     </>
   );
 };
@@ -112,10 +133,10 @@ const Game = (props) => {
 
 // play again button, when timer is over
 const PlayAgain = (props) => (
-  <div className="game-done">
-    {'Votre score est de ' + props.score}
-    <button onClick={props.onClick}>Rejouez</button>
-  </div>
+  <>
+    <div className="Game-Over">{'Votre score est de ' + props.score}</div>
+    <button onClick={props.onClick(true)}>Rejouez</button>
+  </>
 );
 
 // component displaying the colors
