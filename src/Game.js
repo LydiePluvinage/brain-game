@@ -12,49 +12,24 @@ const BrainGame = () => {
   const [validColor, setValidColor] = useState(
     pickRandomColor(Object.entries(Colors))
   );
+  const [colorsList, setColorsList] = useState(
+    shuffleArray(Object.entries(Colors))
+  );
+  const [wordsList, setWordsList] = useState(
+    shuffleArray(shuffleWords(Object.entries(Colors)))
+  );
 
   // deals with timer
-  /*useEffect(() => {
+  useEffect(() => {
     if (secondsLeft > 0) {
       const timerId = setTimeout(() => {
         setSecondsLeft(secondsLeft - 1);
       }, 1000);
       return () => clearTimeout(timerId);
+    } else {
     }
-  });*/
+  });
 
-  // Randomly chooses a color between the list of available colors
-  function pickRandomColor(array) {
-    const j = Math.floor(Math.random() * array.length);
-    return array[j][0];
-  }
-
-  // compares answer given and valid color
-  // increments correct answers if needed
-  // resets words
-  function checkAnswerAndReset(colorChosen) {
-    if (colorChosen === validColor) {
-      setCorrectAnswers(correctAnswers + 1);
-    }
-    setValidColor(pickRandomColor(Object.entries(Colors)));
-    setGameId(gameId + 1);
-  }
-
-  return (
-    <>
-      <Game
-        key={gameId}
-        validColor={validColor}
-        checkAnswer={checkAnswerAndReset}
-      />
-      <div className="answers">Bonnes réponses: {correctAnswers}</div>
-      <div className="timer">Secondes restantes: {secondsLeft}</div>
-    </>
-  );
-};
-
-// one instance of the game
-const Game = (props) => {
   // function that shuffles an array
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -73,10 +48,46 @@ const Game = (props) => {
     return array;
   }
 
+  // Randomly chooses a color between the list of available colors
+  function pickRandomColor(array) {
+    const j = Math.floor(Math.random() * array.length);
+    return array[j][0];
+  }
+
+  // compares answer given and valid color
+  // increments correct answers if needed
+  // resets words
+  function checkAnswerAndReset(colorChosen) {
+    if (colorChosen === validColor) {
+      setCorrectAnswers(correctAnswers + 1);
+    }
+    setValidColor(pickRandomColor(Object.entries(Colors)));
+    setWordsList(shuffleArray(shuffleWords(Object.entries(Colors))));
+    setColorsList(shuffleArray(Object.entries(Colors)));
+    setGameId(gameId + 1);
+  }
+
+  return (
+    <>
+      <Game
+        key={gameId}
+        validColor={validColor}
+        checkAnswer={checkAnswerAndReset}
+        colors={colorsList}
+        words={wordsList}
+      />
+      <div className="answers">Bonnes réponses: {correctAnswers}</div>
+      <div className="timer">Secondes restantes: {secondsLeft}</div>
+    </>
+  );
+};
+
+// one instance of the game
+const Game = (props) => {
   return (
     <div className="Game">
       <div className="Game__Words">
-        {shuffleArray(shuffleWords(Object.entries(Colors))).map((color) => (
+        {props.words.map((color) => (
           <ColorWord
             key={color[0]}
             name={color[0]}
@@ -86,7 +97,7 @@ const Game = (props) => {
         ))}
       </div>
       <div className="Game__Colors">
-        {shuffleArray(Object.entries(Colors)).map((color) => (
+        {props.colors.map((color) => (
           <ColorButton
             key={color[0]}
             name={color[0]}
@@ -98,6 +109,14 @@ const Game = (props) => {
     </div>
   );
 };
+
+// play again button, when timer is over
+const PlayAgain = (props) => (
+  <div className="game-done">
+    {'Votre score est de ' + props.score}
+    <button onClick={props.onClick}>Rejouez</button>
+  </div>
+);
 
 // component displaying the colors
 const ColorButton = (props) => {
