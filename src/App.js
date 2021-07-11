@@ -5,7 +5,7 @@ import Timer from './Timer';
 import { useState } from 'react';
 
 const App = () => {
-  const nbSeconds = 7;
+  const nbSeconds = 60;
   const [playing, setPlaying] = useState(true);
   const [nbGame, setNbGame] = useState(1);
   // App Component
@@ -24,7 +24,7 @@ const App = () => {
   return (
     <div className="App">
       <header className="App__Header">Play with your brain</header>
-      <BrainGame playing={playing} over={handlePlaying} />
+      <BrainGame playing={playing} over={handlePlaying} seconds={nbSeconds} />
       {playing && (
         <Timer
           seconds={nbSeconds}

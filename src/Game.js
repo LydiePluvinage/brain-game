@@ -71,8 +71,9 @@ const BrainGame = (props) => {
   return (
     <>
       <div className="Game__Description">
-        Choisissez la couleur correspondant au mot entouré. Vous avez 60
-        secondes.
+        {'Choisissez la couleur correspondant au mot entouré. Vous avez ' +
+          props.seconds +
+          ' secondes.'}
       </div>
       {!props.playing ? (
         <PlayAgain score={correctAnswers} onClick={() => startNewGame} />
