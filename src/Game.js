@@ -1,14 +1,13 @@
 import './Game.css';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-const BrainGame = () => {
+const BrainGame = (props) => {
   // BrainGame component
   // Sets the game and calculates scores
   // Resets words and colors
   // Deals with timer
   const [gameId, setGameId] = useState(1);
   const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState(60);
   const [validColor, setValidColor] = useState(
     pickRandomColor(Object.entries(Colors))
   );
@@ -18,20 +17,6 @@ const BrainGame = () => {
   const [wordsList, setWordsList] = useState(
     shuffleArray(shuffleWords(Object.entries(Colors)))
   );
-
-  // deals with timer
-  useEffect(() => {
-    if (secondsLeft > 0) {
-      const timerId = setTimeout(() => {
-        setSecondsLeft(secondsLeft - 1);
-      }, 1000);
-      return () => clearTimeout(timerId);
-    }
-  });
-
-  const gameOver = secondsLeft === 0;
-  console.log(secondsLeft);
-  console.log(gameOver);
 
   // function that shuffles an array
   function shuffleArray(array) {
@@ -77,7 +62,7 @@ const BrainGame = () => {
     if (newGame) {
       setCorrectAnswers(0);
       setGameId(0);
-      setSecondsLeft(60);
+      props.over();
     } else {
       setGameId(gameId + 1);
     }
@@ -89,7 +74,7 @@ const BrainGame = () => {
         Choisissez la couleur correspondant au mot entouré. Vous avez 60
         secondes.
       </div>
-      {gameOver === true ? (
+      {!props.playing ? (
         <PlayAgain score={correctAnswers} onClick={() => startNewGame} />
       ) : (
         <>
@@ -101,7 +86,6 @@ const BrainGame = () => {
             words={wordsList}
           />
           <div className="Game__Answers">Bonnes réponses: {correctAnswers}</div>
-          <div className="Game__Timer">Secondes restantes: {secondsLeft}</div>
         </>
       )}
     </>
