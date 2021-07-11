@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/brain-game/static/css/main.622b4881.chunk.css",
-    "main.js": "/brain-game/static/js/main.eed7e30c.chunk.js",
-    "main.js.map": "/brain-game/static/js/main.eed7e30c.chunk.js.map",
+    "main.js": "/brain-game/static/js/main.f92d72b9.chunk.js",
+    "main.js.map": "/brain-game/static/js/main.f92d72b9.chunk.js.map",
     "runtime-main.js": "/brain-game/static/js/runtime-main.62f19ab8.js",
     "runtime-main.js.map": "/brain-game/static/js/runtime-main.62f19ab8.js.map",
     "static/js/2.8829e962.chunk.js": "/brain-game/static/js/2.8829e962.chunk.js",
@@ -15,6 +15,6 @@
     "static/js/runtime-main.62f19ab8.js",
     "static/js/2.8829e962.chunk.js",
     "static/css/main.622b4881.chunk.css",
-    "static/js/main.eed7e30c.chunk.js"
+    "static/js/main.f92d72b9.chunk.js"
   ]
 }
